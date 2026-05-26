@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yroo Site</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DotGothic16&family=Press+Start+2P&display=swap');
+
+        :root {
+            --bg-color: #0d1b2a;
+            --text-main: #e0e1dd;
+            --accent: #415a77;
+            --wave-color: #778da9;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-color);
+            font-family: 'DotGothic16', sans-serif;
+            color: var(--text-main);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Retro CRT Scanline Effect */
+        .crt::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 10;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        .hero-container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 50px;
+        }
+
+        h1 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 6px 6px 0px var(--accent);
+            z-index: 2;
+            position: relative;
+            letter-spacing: -2px;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+            z-index: 2;
+            position: relative;
+            background: var(--bg-color);
+            padding: 5px 15px;
+            border: 2px dashed var(--wave-color);
+        }
+
+        /* Decorative Vertical Japanese Text */
+        .japanese-text {
+            writing-mode: vertical-rl;
+            position: absolute;
+            right: 8%;
+            top: 15%;
+            font-size: 2.5rem;
+            color: var(--wave-color);
+            letter-spacing: 8px;
+            text-shadow: 3px 3px 0px var(--bg-color), 5px 5px 0px var(--accent);
+            font-weight: bold;
+            opacity: 0.9;
+            z-index: 1;
+        }
+
+        .btn {
+            font-family: 'Press Start 2P', cursive;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            border: 4px solid var(--text-main);
+            padding: 15px 25px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 8px 8px 0px var(--accent);
+            transition: all 0.1s;
+            position: relative;
+            z-index: 2;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:active {
+            box-shadow: 2px 2px 0px var(--accent);
+            transform: translate(6px, 6px);
+        }
+
+        /* Pixel-art style wave using repeating gradients and patterns */
+        .waves-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 180px;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .waves {
+            position: absolute;
+            bottom: 0;
+            width: 120%;
+            height: 100%;
+            background: 
+                linear-gradient(135deg, transparent 25%, var(--wave-color) 25%, var(--wave-color) 50%, transparent 50%, transparent 75%, var(--wave-color) 75%, var(--wave-color) 100%),
+                linear-gradient(225deg, transparent 25%, var(--wave-color) 25%, var(--wave-color) 50%, transparent 50%, transparent 75%, var(--wave-color) 75%, var(--wave-color) 100%);
+            background-size: 60px 60px;
+            opacity: 0.8;
+            animation: waveMove 15s linear infinite;
+        }
+        
+        .waves::after {
+            content: "";
+            position: absolute;
+            top: 30px;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(135deg, transparent 25%, var(--accent) 25%, var(--accent) 50%, transparent 50%, transparent 75%, var(--accent) 75%, var(--accent) 100%),
+                linear-gradient(225deg, transparent 25%, var(--accent) 25%, var(--accent) 50%, transparent 50%, transparent 75%, var(--accent) 75%, var(--accent) 100%);
+            background-size: 60px 60px;
+            background-position: 30px 0;
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        @keyframes waveMove {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-60px); }
+        }
+    </style>
+</head>
+<body class="crt">
+    <div class="japanese-text">
+        波のピクセル
+    </div>
+    
+    <div class="hero-container">
+        <h1>YROO</h1>
+        <div class="subtitle" id="glitchText">WELCOME // DEVELOPER</div>
+        <a href="#" class="btn" id="exploreBtn">PRESS START</a>
+    </div>
+
+    <div class="waves-container">
+        <div class="waves"></div>
+    </div>
+
+    <script>
+        // Interactive Button
+        const btn = document.getElementById('exploreBtn');
+        btn.addEventListener('mouseenter', () => {
+            btn.style.color = 'var(--accent)';
+            btn.style.borderColor = 'var(--accent)';
+            btn.style.boxShadow = '8px 8px 0px var(--wave-color)';
+        });
+        
+        btn.addEventListener('mouseleave', () => {
+            btn.style.color = 'var(--text-main)';
+            btn.style.borderColor = 'var(--text-main)';
+            btn.style.boxShadow = '8px 8px 0px var(--accent)';
+        });
+        
+        // Retro Glitch / Hack Effect on Subtitle
+        const subtitle = document.getElementById('glitchText');
+        const originalText = subtitle.innerText;
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*<>';
+        
+        subtitle.addEventListener('mouseover', () => {
+            let iterations = 0;
+            const interval = setInterval(() => {
+                subtitle.innerText = subtitle.innerText.split('').map((letter, index) => {
+                    if (index < iterations) {
+                        return originalText[index];
+                    }
+                    return chars[Math.floor(Math.random() * chars.length)];
+                }).join('');
+                
+                if (iterations >= originalText.length) {
+                    clearInterval(interval);
+                    subtitle.innerText = originalText;
+                }
+                iterations += 1/2; // Adjust speed of decoding
+            }, 30);
+        });
+    </script>
+</body>
+</html>
